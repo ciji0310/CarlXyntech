@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Voitixa Tech PH sells affordable tech and gaming gear in the Philippines, including budget gadgets, gaming accessories, laptop deals, and smartphone offers.">
+  <meta name="keywords" content="best budget gadgets philippines, affordable gaming accessories ph, cheap laptops apayao, tech store philippines online, smartphone deals philippines, affordable gadgets philippines, gaming accessories ph, cheap laptops apayao">
+  <meta name="author" content="Voitixa Tech PH">
+  <meta property="og:title" content="Voitixa Tech PH | Affordable Tech & Gaming Gear in the Philippines">
+  <meta property="og:description" content="Shop budget gadgets, gaming accessories, smartphones, laptops, and tech accessories from Bacsay, Luna, Apayao with delivery options.">
+  <meta property="og:type" content="website">
+  <title>Voitixa Tech PH | Affordable Tech & Gaming Gear in the Philippines</title>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#shop" aria-label="Voitixa Tech PH home">
+      <img src="assets/logo.png" alt="Voitixa Tech PH neon tech logo">
+      <span>
+        <strong>Voitixa Tech PH</strong>
+        <small>Affordable Tech & Gaming Gear in the Philippines</small>
+      </span>
+    </a>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="#shop">Shop</a>
+      <a href="#deals">Deals</a>
+      <a href="#guides">Guides</a>
+      <a href="#support">Support</a>
+    </nav>
+
+    <button class="login-button" type="button" id="loginNavButton">Login</button>
+    <button class="login-button hidden" type="button" id="logoutButton">Logout</button>
+    <button class="cart-button" type="button" id="cartToggle" aria-expanded="false" aria-controls="cartPanel">
+      Cart <span id="cartCount">0</span>
+    </button>
+  </header>
+
+  <main>
+    <section class="login-section" id="login" aria-labelledby="loginTitle">
+      <div class="login-copy">
+        <p class="eyebrow">Account access</p>
+        <h1 id="loginTitle">Login with Gmail or create a new shopping account.</h1>
+        <p>Shop faster, keep your cart ready, and place orders from your buyer dashboard.</p>
+      </div>
+
+      <div class="auth-panel">
+        <form class="login-form" id="loginForm">
+          <h2>Login</h2>
+          <label for="usernameInput">Gmail</label>
+          <input id="usernameInput" type="email" placeholder="yourname@gmail.com" required>
+
+          <label for="passwordInput">Password</label>
+          <div class="password-field">
+            <input id="passwordInput" type="password" placeholder="Enter password" required>
+            <button class="password-toggle" type="button" data-toggle-password="passwordInput" aria-label="Show password" aria-pressed="false">
+              <span aria-hidden="true">Show</span>
+            </button>
+          </div>
+
+          <button type="submit">Login</button>
+          <div class="signup-prompt">
+            <span>Don't have an account?</span>
+            <button class="text-link-button" type="button" id="showSignupButton" aria-controls="userSignupForm" aria-expanded="false">Sign up</button>
+          </div>
+          <p id="loginMessage" role="status"></p>
+        </form>
+
+        <form class="login-form hidden" id="userSignupForm">
+          <h2>Sign up</h2>
+          <label for="signupGmailInput">Gmail</label>
+          <input id="signupGmailInput" type="email" placeholder="newuser@gmail.com" required>
+
+          <label for="signupPasswordInput">Password</label>
+          <div class="password-field">
+            <input id="signupPasswordInput" type="password" placeholder="Create password" minlength="6" required>
+            <button class="password-toggle" type="button" data-toggle-password="signupPasswordInput" aria-label="Show password" aria-pressed="false">
+              <span aria-hidden="true">Show</span>
+            </button>
+          </div>
+
+          <label for="signupConfirmInput">Confirm password</label>
+          <div class="password-field">
+            <input id="signupConfirmInput" type="password" placeholder="Confirm password" minlength="6" required>
+            <button class="password-toggle" type="button" data-toggle-password="signupConfirmInput" aria-label="Show password" aria-pressed="false">
+              <span aria-hidden="true">Show</span>
+            </button>
+          </div>
+
+          <button type="submit">Create account</button>
+          <p id="userSignupMessage" role="status"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="dashboard-section hidden" id="consumerDashboard" aria-labelledby="consumerTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Buyer dashboard</p>
+        <h2 id="consumerTitle">Shop products, add to cart, and buy from Voitixa Tech PH.</h2>
+      </div>
+      <div class="consumer-stats">
+        <div>
+          <strong id="consumerProductCount">0</strong>
+          <span>available products</span>
+        </div>
+        <div>
+          <strong id="consumerCartCount">0</strong>
+          <span>items in cart</span>
+        </div>
+        <div>
+          <strong id="consumerCartTotal">PHP 0</strong>
+          <span>cart total</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="shop-shell" id="shop" aria-labelledby="shopTitle">
+      <div class="shop-intro">
+        <p class="eyebrow">Bacsay, Luna, Apayao stockroom. PH-wide checkout.</p>
+        <h1 id="shopTitle">Budget gadgets, gaming gear, phones, and laptop finds for everyday upgrades.</h1>
+        <p>Fresh picks for students, streamers, freelancers, and first-build gamers who want reliable tech without the premium-store markup.</p>
+      </div>
+
+      <div class="shop-tools" aria-label="Product search and filters">
+        <label class="search-box" for="searchInput">
+          <span>Search products</span>
+          <input id="searchInput" type="search" placeholder="Try gaming mouse, laptop, power bank">
+        </label>
+
+        <div class="filter-row" aria-label="Product categories">
+          <button class="filter-button active" type="button" data-filter="all">All</button>
+          <button class="filter-button" type="button" data-filter="gadgets">Gadgets</button>
+          <button class="filter-button" type="button" data-filter="gaming">Gaming</button>
+          <button class="filter-button" type="button" data-filter="smartphones">Smartphones</button>
+          <button class="filter-button" type="button" data-filter="laptops">Laptops</button>
+          <button class="filter-button" type="button" data-filter="accessories">Accessories</button>
+        </div>
+      </div>
+
+      <div class="layout">
+        <section class="product-area" aria-label="Product listings">
+          <div class="product-topline">
+            <p id="resultCount">Showing all products</p>
+            <select id="sortSelect" aria-label="Sort products">
+              <option value="featured">Featured</option>
+              <option value="low">Price: Low to High</option>
+              <option value="high">Price: High to Low</option>
+              <option value="rating">Top Rated</option>
+            </select>
+          </div>
+          <div class="product-grid" id="productGrid"></div>
+        </section>
+
+        <aside class="cart-panel" id="cartPanel" aria-label="Shopping cart">
+          <div class="cart-head">
+            <h2>Your cart</h2>
+            <button class="text-button" type="button" id="clearCart">Clear</button>
+          </div>
+          <div class="cart-items" id="cartItems">
+            <p class="empty-cart">Your next upgrade starts here.</p>
+          </div>
+          <div class="cart-summary">
+            <span>Total</span>
+            <strong id="cartTotal">PHP 0</strong>
+          </div>
+          <button class="checkout-button" type="button" id="checkoutButton">Buy products</button>
+          <p class="cart-note">Pickup in Bacsay, Luna, Apayao on selected items. Delivery rates confirmed before payment.</p>
+          <p id="checkoutMessage" role="status"></p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="promo-band" id="deals" aria-labelledby="dealsTitle">
+      <div>
+        <p class="eyebrow">Payday picks</p>
+        <h2 id="dealsTitle">Gaming bundles under PHP 2,000 and daily-driver tech under PHP 5,000.</h2>
+      </div>
+      <a class="band-link" href="#shop">Shop today's deals</a>
+    </section>
+
+    <section class="trust-strip" aria-label="Store benefits">
+      <div>
+        <strong>Apayao ready</strong>
+        <span>Bacsay, Luna pickup, courier delivery, and shipping options.</span>
+      </div>
+      <div>
+        <strong>Budget-first curation</strong>
+        <span>Useful specs, fair pricing, and student-friendly options.</span>
+      </div>
+      <div>
+        <strong>Warranty assist</strong>
+        <span>Receipt support and supplier coordination for eligible items.</span>
+      </div>
+    </section>
+
+    <section class="guide-section" id="guides" aria-labelledby="guidesTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Buying guides</p>
+        <h2 id="guidesTitle">Reviews and price checks for smarter tech buys.</h2>
+      </div>
+      <div class="guide-grid">
+        <article>
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" alt="Laptop and phone on a desk">
+          <div>
+            <p>Best Budget Gadgets Philippines</p>
+            <h3>Top 10 useful gadgets below PHP 1,500</h3>
+            <a href="#shop">Read picks</a>
+          </div>
+        </article>
+        <article>
+          <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=900&q=80" alt="Gaming desk with monitor and keyboard">
+          <div>
+            <p>Affordable Gaming Accessories PH</p>
+            <h3>Starter gear for Valorant, Dota, and streaming</h3>
+            <a href="#shop">See bundles</a>
+          </div>
+        </article>
+        <article>
+          <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=80" alt="Laptop beside notebooks">
+          <div>
+            <p>Cheap Laptops Apayao</p>
+            <h3>What to check before buying a budget laptop</h3>
+            <a href="#shop">Compare laptops</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="newsletter" id="support" aria-labelledby="supportTitle">
+      <div>
+        <p class="eyebrow">Deals drop first on social</p>
+        <h2 id="supportTitle">Get Bacsay pickup alerts, TikTok sale codes, and Facebook flash promos.</h2>
+      </div>
+      <form id="dealsForm">
+        <label for="emailInput">Email address</label>
+        <div>
+          <input id="emailInput" type="email" placeholder="you@example.com" required>
+          <button type="submit">Send deals</button>
+        </div>
+        <p id="dealsMessage" role="status"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Voitixa Tech PH | Online tech store Philippines | Bacsay, Luna, Apayao</p>
+    <div>
+      <a href="#shop">Product listings</a>
+      <a href="#guides">Reviews</a>
+      <a href="mailto:sales@voitixatech.ph">sales@voitixatech.ph</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
