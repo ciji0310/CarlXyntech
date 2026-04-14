@@ -223,6 +223,7 @@ const logoutButton = document.querySelector("#logoutButton");
 const productGrid = document.querySelector("#productGrid");
 const searchInput = document.querySelector("#searchInput");
 const filterButtons = document.querySelectorAll(".filter-button");
+const categoryLinks = document.querySelectorAll("[data-filter-link]");
 const sortSelect = document.querySelector("#sortSelect");
 const resultCount = document.querySelector("#resultCount");
 const cartItems = document.querySelector("#cartItems");
@@ -662,6 +663,16 @@ filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
     activeFilter = button.dataset.filter;
     filterButtons.forEach((item) => item.classList.toggle("active", item === button));
+    renderProducts();
+  });
+});
+
+categoryLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    activeFilter = link.dataset.filterLink;
+    filterButtons.forEach((button) => {
+      button.classList.toggle("active", button.dataset.filter === activeFilter);
+    });
     renderProducts();
   });
 });

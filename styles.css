@@ -352,6 +352,87 @@ textarea {
   line-height: 1.6;
 }
 
+.about-section,
+.products-section,
+.contact-section {
+  padding: clamp(36px, 6vw, 72px) clamp(16px, 4vw, 56px);
+}
+
+.about-section,
+.contact-section {
+  background: var(--white);
+}
+
+.products-section {
+  background: var(--soft);
+}
+
+.about-grid,
+.category-grid,
+.contact-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.about-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.category-grid {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.contact-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.about-grid div,
+.category-grid a,
+.contact-grid a {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-height: 170px;
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.about-grid div,
+.contact-grid a {
+  background: var(--soft);
+}
+
+.about-grid h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.18rem;
+}
+
+.about-grid p,
+.category-grid span,
+.contact-grid span {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.category-grid strong,
+.contact-grid strong {
+  color: var(--blue);
+  font-size: 1.05rem;
+  overflow-wrap: anywhere;
+}
+
+.category-grid a:hover,
+.category-grid a:focus-visible,
+.contact-grid a:hover,
+.contact-grid a:focus-visible {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(53, 255, 122, 0.2);
+}
+
 .shop-intro {
   max-width: 900px;
   margin-bottom: 24px;
@@ -980,6 +1061,9 @@ h1 {
   .trust-strip,
   .consumer-stats,
   .account-summary,
+  .about-grid,
+  .category-grid,
+  .contact-grid,
   .deal-grid,
   .support-section,
   .support-grid,
