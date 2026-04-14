@@ -109,7 +109,8 @@ textarea {
 .checkout-button,
 .login-form button,
 .newsletter button,
-.band-link {
+.band-link,
+.primary-action {
   border: 0;
   border-radius: 8px;
   color: var(--ink);
@@ -149,20 +150,41 @@ textarea {
 }
 
 .login-section {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 760px);
   align-items: start;
   gap: 26px;
+  overflow: hidden;
   color: var(--white);
-  background: var(--ink);
+  background:
+    linear-gradient(90deg, rgba(7, 17, 29, 0.94), rgba(7, 17, 29, 0.82) 52%, rgba(15, 34, 52, 0.72)),
+    url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1800&q=80") center / cover;
+}
+
+.aha-hero::after {
+  position: absolute;
+  right: clamp(16px, 5vw, 72px);
+  bottom: clamp(18px, 4vw, 46px);
+  width: min(28vw, 340px);
+  height: min(28vw, 340px);
+  pointer-events: none;
+  content: "";
+  background:
+    linear-gradient(rgba(186, 255, 207, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(186, 255, 207, 0.2) 1px, transparent 1px);
+  background-size: 34px 34px;
+  opacity: 0.55;
+  transform: rotate(-4deg);
 }
 
 .login-copy h1 {
   color: var(--white);
 }
 
-.login-copy p:last-child {
+.login-copy > p:not(.eyebrow) {
   max-width: 660px;
+  margin: 18px 0 0;
   color: #c9d8e4;
   font-size: 1.08rem;
   line-height: 1.7;
@@ -170,6 +192,72 @@ textarea {
 
 .login-section .eyebrow {
   color: var(--green);
+}
+
+.login-copy,
+.auth-panel {
+  position: relative;
+  z-index: 1;
+}
+
+.aha-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.primary-action,
+.secondary-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 18px;
+  font-weight: 950;
+}
+
+.secondary-action {
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.primary-action:hover,
+.primary-action:focus-visible,
+.secondary-action:hover,
+.secondary-action:focus-visible {
+  color: var(--ink);
+  background: var(--mint);
+}
+
+.aha-proof {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 760px;
+  margin-top: 24px;
+}
+
+.aha-proof div {
+  display: grid;
+  gap: 6px;
+  min-height: 118px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+}
+
+.aha-proof strong {
+  color: var(--green);
+  font-size: 1.2rem;
+}
+
+.aha-proof span {
+  color: #dcecf7;
+  line-height: 1.45;
 }
 
 .auth-panel {
@@ -1131,7 +1219,8 @@ h1 {
   }
 
   .price-row,
-  .newsletter form div {
+  .newsletter form div,
+  .aha-proof {
     grid-template-columns: 1fr;
     align-items: stretch;
   }
