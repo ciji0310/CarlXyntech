@@ -43,18 +43,19 @@
       <div class="login-copy">
         <p class="eyebrow">Account access</p>
         <h1 id="loginTitle">Login with Gmail or create a new shopping account.</h1>
-        <p>Shop faster, keep your cart ready, and place orders from your buyer dashboard.</p>
+        <p>Your Gmail, cart, orders, and account details stay saved in this browser for faster shopping next time.</p>
       </div>
 
       <div class="auth-panel">
         <form class="login-form" id="loginForm">
           <h2>Login</h2>
           <label for="usernameInput">Gmail</label>
-          <input id="usernameInput" type="email" placeholder="yourname@gmail.com" required>
+          <input id="usernameInput" type="email" placeholder="yourname@gmail.com" list="savedAccountList" autocomplete="username" required>
+          <datalist id="savedAccountList"></datalist>
 
           <label for="passwordInput">Password</label>
           <div class="password-field">
-            <input id="passwordInput" type="password" placeholder="Enter password" required>
+            <input id="passwordInput" type="password" placeholder="Enter password" autocomplete="current-password" required>
             <button class="password-toggle" type="button" data-toggle-password="passwordInput" aria-label="Show password" aria-pressed="false">
               <span aria-hidden="true">Show</span>
             </button>
@@ -71,11 +72,11 @@
         <form class="login-form hidden" id="userSignupForm">
           <h2>Sign up</h2>
           <label for="signupGmailInput">Gmail</label>
-          <input id="signupGmailInput" type="email" placeholder="newuser@gmail.com" required>
+          <input id="signupGmailInput" type="email" placeholder="newuser@gmail.com" autocomplete="username" required>
 
           <label for="signupPasswordInput">Password</label>
           <div class="password-field">
-            <input id="signupPasswordInput" type="password" placeholder="Create password" minlength="6" required>
+            <input id="signupPasswordInput" type="password" placeholder="Create password" minlength="6" autocomplete="new-password" required>
             <button class="password-toggle" type="button" data-toggle-password="signupPasswordInput" aria-label="Show password" aria-pressed="false">
               <span aria-hidden="true">Show</span>
             </button>
@@ -83,7 +84,7 @@
 
           <label for="signupConfirmInput">Confirm password</label>
           <div class="password-field">
-            <input id="signupConfirmInput" type="password" placeholder="Confirm password" minlength="6" required>
+            <input id="signupConfirmInput" type="password" placeholder="Confirm password" minlength="6" autocomplete="new-password" required>
             <button class="password-toggle" type="button" data-toggle-password="signupConfirmInput" aria-label="Show password" aria-pressed="false">
               <span aria-hidden="true">Show</span>
             </button>
@@ -99,6 +100,7 @@
       <div class="section-heading">
         <p class="eyebrow">Buyer dashboard</p>
         <h2 id="consumerTitle">Shop products, add to cart, and buy from Voitixa Tech PH.</h2>
+        <p id="consumerGreeting" class="dashboard-greeting">Welcome back. Your saved account is ready.</p>
       </div>
       <div class="consumer-stats">
         <div>

@@ -209,6 +209,7 @@ const loginForm = document.querySelector("#loginForm");
 const usernameInput = document.querySelector("#usernameInput");
 const passwordInput = document.querySelector("#passwordInput");
 const loginMessage = document.querySelector("#loginMessage");
+const savedAccountList = document.querySelector("#savedAccountList");
 const userSignupForm = document.querySelector("#userSignupForm");
 const signupGmailInput = document.querySelector("#signupGmailInput");
 const signupPasswordInput = document.querySelector("#signupPasswordInput");
@@ -232,9 +233,11 @@ const cartPanel = document.querySelector("#cartPanel");
 const clearCart = document.querySelector("#clearCart");
 const checkoutButton = document.querySelector("#checkoutButton");
 const checkoutMessage = document.querySelector("#checkoutMessage");
+const consumerTitle = document.querySelector("#consumerTitle");
 const consumerProductCount = document.querySelector("#consumerProductCount");
 const consumerCartCount = document.querySelector("#consumerCartCount");
 const consumerCartTotal = document.querySelector("#consumerCartTotal");
+const consumerGreeting = document.querySelector("#consumerGreeting");
 const accountEmail = document.querySelector("#accountEmail");
 const accountSavedDate = document.querySelector("#accountSavedDate");
 const accountOrderCount = document.querySelector("#accountOrderCount");
@@ -261,6 +264,34 @@ function loadUsers() {
 
 function saveUsers(users) {
   localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(users));
+}
+
+function getAccountName(email) {
+  const name = email.split("@")[0].replace(/[._-]+/g, " ").trim();
+  if (!name) return "buyer";
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function renderSavedAccounts() {
+  const users = loadUsers();
+
+  savedAccountList.innerHTML = users
+    .map((user) => `<option value="${user.gmail}"></option>`)
+    .join("");
+}
+
+function fillSavedAccount(gmail) {
+  const user = loadUsers().find((item) => item.gmail === gmail);
+  if (!user) return;
+
+  usernameInput.value = user.gmail;
+  passwordInput.value = user.password;
+  loginMessage.textContent = `Saved account loaded for ${getAccountName(user.gmail)}.`;
+  passwordInput.focus();
 }
 
 function getCartKey(username) {
@@ -428,6 +459,8 @@ function renderConsumerStats() {
 
 function renderAccountSummary() {
   if (!currentSession) {
+    consumerTitle.textContent = "Shop products, add to cart, and buy from Voitixa Tech PH.";
+    consumerGreeting.textContent = "Welcome back. Your saved account is ready.";
     accountEmail.textContent = "No account yet";
     accountSavedDate.textContent = "After sign up";
     accountOrderCount.textContent = "0";
@@ -438,7 +471,10 @@ function renderAccountSummary() {
   const savedUser = users.find((user) => user.gmail === currentSession.username);
   const orders = loadOrders().filter((order) => order.customer === currentSession.username);
   const createdAt = savedUser?.createdAt ? new Date(savedUser.createdAt) : null;
+  const accountName = getAccountName(currentSession.username);
 
+  consumerTitle.textContent = `Welcome back, ${accountName}.`;
+  consumerGreeting.textContent = "Your Gmail account, saved cart, and order history are ready in this browser.";
   accountEmail.textContent = currentSession.username;
   accountSavedDate.textContent = createdAt
     ? createdAt.toLocaleDateString("en-PH", { year: "numeric", month: "short", day: "numeric" })
@@ -536,6 +572,7 @@ loginForm.addEventListener("submit", (event) => {
   loginMessage.textContent = "";
   userSignupMessage.textContent = "";
   loginForm.reset();
+  renderSavedAccounts();
   hideSignupForm();
   showDashboard(true);
   renderEverything();
@@ -580,11 +617,16 @@ userSignupForm.addEventListener("submit", (event) => {
   saveUsers(users);
   saveSession({ username: gmail });
   loginMessage.textContent = "";
-  userSignupMessage.textContent = "Account created. Welcome to your dashboard.";
+  userSignupMessage.textContent = "Account created and saved for easy login.";
   userSignupForm.reset();
+  renderSavedAccounts();
   hideSignupForm();
   showDashboard(true);
   renderEverything();
+});
+
+usernameInput.addEventListener("change", () => {
+  fillSavedAccount(usernameInput.value.trim().toLowerCase());
 });
 
 passwordToggleButtons.forEach((button) => {
@@ -658,6 +700,8 @@ dealsForm.addEventListener("submit", (event) => {
   dealsMessage.textContent = "You are on the deal list. Watch for the next drop.";
   dealsForm.reset();
 });
+
+renderSavedAccounts();
 
 if (currentSession) {
   cart = loadSavedCart(currentSession.username);
