@@ -1,6 +1,7 @@
 const SESSION_STORAGE_KEY = "voitixaSession";
 const ORDER_STORAGE_KEY = "voitixaOrders";
 const USER_STORAGE_KEY = "voitixaUsers";
+const CART_STORAGE_PREFIX = "voitixaCart:";
 
 const defaultProducts = [
   {
@@ -98,6 +99,102 @@ const defaultProducts = [
     description: "Foldable aluminum stand that lifts your screen and improves airflow during long sessions.",
     image: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=900&q=80",
     alt: "Laptop setup with external accessories"
+  },
+  {
+    id: 9,
+    name: "ClearCall USB Condenser Mic",
+    category: "accessories",
+    originalPrice: 1699,
+    price: 1199,
+    rating: 4.7,
+    tag: "Creator kit",
+    description: "Plug-and-play desktop mic for class reports, Discord calls, podcasts, and livestreams.",
+    image: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=900&q=80",
+    alt: "Microphone on a desk setup"
+  },
+  {
+    id: 10,
+    name: "VoltSnap 65W GaN Charger",
+    category: "gadgets",
+    originalPrice: 1299,
+    price: 899,
+    rating: 4.8,
+    tag: "Fast charge",
+    description: "Compact USB-C charger for phones, tablets, earbuds, and many lightweight laptops.",
+    image: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=900&q=80",
+    alt: "Phone charger and cable on a table"
+  },
+  {
+    id: 11,
+    name: "XynPhone Lite A3 64GB",
+    category: "smartphones",
+    originalPrice: 5490,
+    price: 4490,
+    rating: 4.4,
+    tag: "Entry phone",
+    description: "Affordable everyday phone for calls, social apps, school chats, and basic photos.",
+    image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=900&q=80",
+    alt: "Smartphone standing on a plain surface"
+  },
+  {
+    id: 12,
+    name: "AeroPad RGB Cooling Stand",
+    category: "gaming",
+    originalPrice: 1399,
+    price: 999,
+    rating: 4.5,
+    tag: "Laptop gaming",
+    description: "Cooling pad with quiet fans and adjustable height for long gaming or editing sessions.",
+    image: "https://images.unsplash.com/photo-1593640495253-23196b27a87f?auto=format&fit=crop&w=900&q=80",
+    alt: "Laptop on a gaming desk"
+  },
+  {
+    id: 13,
+    name: "MetroBook Study 15 SSD",
+    category: "laptops",
+    originalPrice: 22990,
+    price: 18990,
+    rating: 4.6,
+    tag: "School ready",
+    description: "15-inch laptop with SSD speed, number pad, webcam, and room for assignments and files.",
+    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=900&q=80",
+    alt: "Silver laptop on a desk"
+  },
+  {
+    id: 14,
+    name: "StreamBeam LED Light Bar",
+    category: "accessories",
+    originalPrice: 1099,
+    price: 799,
+    rating: 4.5,
+    tag: "Setup glow",
+    description: "Adjustable desk light for clearer video calls, late-night homework, and product photos.",
+    image: "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=900&q=80",
+    alt: "Desk lamp glowing beside a laptop"
+  },
+  {
+    id: 15,
+    name: "ShieldCase Rugged Phone Kit",
+    category: "smartphones",
+    originalPrice: 599,
+    price: 399,
+    rating: 4.3,
+    tag: "Phone care",
+    description: "Shock-resistant case, tempered glass, and cleaning cloth for common phone sizes.",
+    image: "https://images.unsplash.com/photo-1601972602288-3be527b4f18a?auto=format&fit=crop&w=900&q=80",
+    alt: "Phone accessories arranged on a table"
+  },
+  {
+    id: 16,
+    name: "QuestPad 10 Learning Tablet",
+    category: "gadgets",
+    originalPrice: 6990,
+    price: 5790,
+    rating: 4.4,
+    tag: "Family pick",
+    description: "10-inch tablet for video lessons, reading apps, streaming, and simple productivity.",
+    image: "https://images.unsplash.com/photo-1589739900243-4b52cd9b104e?auto=format&fit=crop&w=900&q=80",
+    alt: "Tablet on a desk"
   }
 ];
 
@@ -138,6 +235,9 @@ const checkoutMessage = document.querySelector("#checkoutMessage");
 const consumerProductCount = document.querySelector("#consumerProductCount");
 const consumerCartCount = document.querySelector("#consumerCartCount");
 const consumerCartTotal = document.querySelector("#consumerCartTotal");
+const accountEmail = document.querySelector("#accountEmail");
+const accountSavedDate = document.querySelector("#accountSavedDate");
+const accountOrderCount = document.querySelector("#accountOrderCount");
 const dealsForm = document.querySelector("#dealsForm");
 const dealsMessage = document.querySelector("#dealsMessage");
 
@@ -163,6 +263,35 @@ function saveUsers(users) {
   localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(users));
 }
 
+function getCartKey(username) {
+  return `${CART_STORAGE_PREFIX}${username.trim().toLowerCase()}`;
+}
+
+function loadSavedCart(username) {
+  if (!username) return [];
+
+  try {
+    const savedCart = JSON.parse(localStorage.getItem(getCartKey(username)) || "[]");
+    return Array.isArray(savedCart) ? savedCart : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveCurrentCart() {
+  if (!currentSession) return;
+  localStorage.setItem(getCartKey(currentSession.username), JSON.stringify(cart));
+}
+
+function loadOrders() {
+  try {
+    const orders = JSON.parse(localStorage.getItem(ORDER_STORAGE_KEY) || "[]");
+    return Array.isArray(orders) ? orders : [];
+  } catch {
+    return [];
+  }
+}
+
 function isGmail(email) {
   return email.trim().toLowerCase().endsWith("@gmail.com");
 }
@@ -181,6 +310,7 @@ function loadSession() {
 function saveSession(session) {
   currentSession = session;
   localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(session));
+  cart = loadSavedCart(session.username);
 }
 
 function clearSession() {
@@ -287,11 +417,33 @@ function renderCart() {
   cartCount.textContent = count;
   consumerCartCount.textContent = count;
   consumerCartTotal.textContent = peso.format(total);
+  saveCurrentCart();
 }
 
 function renderConsumerStats() {
   consumerProductCount.textContent = products.length;
+  renderAccountSummary();
   renderCart();
+}
+
+function renderAccountSummary() {
+  if (!currentSession) {
+    accountEmail.textContent = "No account yet";
+    accountSavedDate.textContent = "After sign up";
+    accountOrderCount.textContent = "0";
+    return;
+  }
+
+  const users = loadUsers();
+  const savedUser = users.find((user) => user.gmail === currentSession.username);
+  const orders = loadOrders().filter((order) => order.customer === currentSession.username);
+  const createdAt = savedUser?.createdAt ? new Date(savedUser.createdAt) : null;
+
+  accountEmail.textContent = currentSession.username;
+  accountSavedDate.textContent = createdAt
+    ? createdAt.toLocaleDateString("en-PH", { year: "numeric", month: "short", day: "numeric" })
+    : "Saved locally";
+  accountOrderCount.textContent = String(orders.length);
 }
 
 function renderEverything() {
@@ -347,7 +499,7 @@ function checkoutCart() {
     return;
   }
 
-  const orders = JSON.parse(localStorage.getItem(ORDER_STORAGE_KEY) || "[]");
+  const orders = loadOrders();
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   orders.push({
     id: Date.now(),
@@ -360,7 +512,7 @@ function checkoutCart() {
 
   cart = [];
   checkoutMessage.textContent = `Order placed. Total: ${peso.format(total)}.`;
-  renderCart();
+  renderConsumerStats();
 }
 
 loginForm.addEventListener("submit", (event) => {
@@ -455,6 +607,7 @@ loginNavButton.addEventListener("click", () => {
 });
 
 logoutButton.addEventListener("click", () => {
+  saveCurrentCart();
   clearSession();
   cart = [];
   renderCart();
@@ -505,6 +658,10 @@ dealsForm.addEventListener("submit", (event) => {
   dealsMessage.textContent = "You are on the deal list. Watch for the next drop.";
   dealsForm.reset();
 });
+
+if (currentSession) {
+  cart = loadSavedCart(currentSession.username);
+}
 
 renderEverything();
 showDashboard(Boolean(currentSession));

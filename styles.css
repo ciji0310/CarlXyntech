@@ -305,7 +305,8 @@ textarea {
   gap: 12px;
 }
 
-.consumer-stats div {
+.consumer-stats div,
+.account-summary div {
   display: grid;
   gap: 4px;
   min-height: 112px;
@@ -315,14 +316,33 @@ textarea {
   border-radius: 8px;
 }
 
-.consumer-stats strong {
+.consumer-stats strong,
+.account-summary strong {
   color: var(--green);
   font-size: 1.8rem;
 }
 
-.consumer-stats span {
+.consumer-stats span,
+.account-summary span {
   color: #c9d8e4;
   font-weight: 800;
+}
+
+.account-summary {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.account-summary div {
+  min-height: 96px;
+  background: var(--blue);
+}
+
+.account-summary strong {
+  overflow-wrap: anywhere;
+  font-size: 1.05rem;
 }
 
 .shop-intro {
@@ -666,6 +686,71 @@ h1 {
   color: var(--green);
 }
 
+.deals-section,
+.support-section {
+  padding: clamp(36px, 6vw, 72px) clamp(16px, 4vw, 56px);
+  background: var(--soft);
+}
+
+.deal-grid,
+.support-grid,
+.tips-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.deal-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.deal-grid article,
+.support-grid article,
+.tips-grid div {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  min-height: 230px;
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.deal-grid h3,
+.support-grid h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.22rem;
+  line-height: 1.25;
+}
+
+.deal-grid p,
+.support-grid p,
+.tips-grid span,
+.faq-list p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.deal-grid strong,
+.support-grid a,
+.deal-grid a,
+.tips-grid strong {
+  color: var(--blue);
+  font-weight: 950;
+}
+
+.deal-label {
+  width: fit-content;
+  padding: 6px 9px;
+  color: var(--ink);
+  background: var(--mint);
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
 .trust-strip {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -756,6 +841,66 @@ h1 {
   font-weight: 900;
 }
 
+.tips-grid {
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 18px;
+}
+
+.tips-grid div {
+  min-height: 150px;
+  background: var(--soft);
+}
+
+.support-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 520px);
+  align-items: start;
+  gap: 22px;
+  background: var(--white);
+}
+
+.support-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.support-grid article {
+  min-height: 210px;
+  background: var(--soft);
+}
+
+.faq-list {
+  display: grid;
+  gap: 10px;
+  padding: 20px;
+  background: var(--panel);
+  border-radius: 8px;
+}
+
+.faq-list h2 {
+  margin: 0 0 4px;
+  color: var(--white);
+  font-size: 1.35rem;
+}
+
+.faq-list details {
+  padding: 14px;
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+}
+
+.faq-list summary {
+  color: var(--mint);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.faq-list p {
+  margin-top: 10px;
+  color: #dcecf7;
+}
+
 .newsletter form {
   display: grid;
   gap: 10px;
@@ -826,7 +971,12 @@ h1 {
   .layout,
   .guide-grid,
   .trust-strip,
-  .consumer-stats {
+  .consumer-stats,
+  .account-summary,
+  .deal-grid,
+  .support-section,
+  .support-grid,
+  .tips-grid {
     grid-template-columns: 1fr;
   }
 
